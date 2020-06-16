@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using CSAppBE.Web.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using Microsoft.EntityFrameworkCore;
 namespace CSAppBE.Web
 {
     public class Startup
@@ -24,6 +20,11 @@ namespace CSAppBE.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<DataContext>(cfg =>
+            {
+                cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
