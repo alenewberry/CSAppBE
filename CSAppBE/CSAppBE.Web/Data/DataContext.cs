@@ -2,7 +2,6 @@
 {
     using CSAppBE.Web.Data.Entities;
     using Microsoft.EntityFrameworkCore;
-    using System.Linq;
 
     public class DataContext : DbContext
     {

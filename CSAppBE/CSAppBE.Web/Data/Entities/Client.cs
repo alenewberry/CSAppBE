@@ -1,17 +1,16 @@
 ﻿namespace CSAppBE.Web.Data.Entities
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     public class Client
     {
         public int Id { get; set; }
 
+        [Required]
         public string CUIT { get; set; }
 
+        [MaxLength(80)]
+        [Required]
         [Display(Name = "Nombre")]
         public string Name { get; set; }
 
