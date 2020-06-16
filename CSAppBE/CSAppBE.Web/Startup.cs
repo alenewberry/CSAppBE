@@ -1,12 +1,15 @@
 namespace CSAppBE.Web
 {
-    using CSAppBE.Web.Data;
+    using Data;
+    using Data.Entities;
+    using Helpers;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using Microsoft.EntityFrameworkCore;
 
     public class Startup
     {
@@ -20,6 +23,17 @@ namespace CSAppBE.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentity<User, IdentityRole>(cfg =>
+            {
+                cfg.User.RequireUniqueEmail = true;
+                cfg.Password.RequireDigit = false;
+                cfg.Password.RequiredUniqueChars = 0;
+                cfg.Password.RequireLowercase = false;
+                cfg.Password.RequireNonAlphanumeric = false;
+                cfg.Password.RequireUppercase = false;
+            })
+        .AddEntityFrameworkStores<DataContext>();
+
             services.AddControllersWithViews();
 
             services.AddDbContext<DataContext>(cfg =>
@@ -29,7 +43,9 @@ namespace CSAppBE.Web
 
             services.AddTransient<SeedDb>();
 
-            services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+
+            services.AddScoped<IUserHelper, UserHelper>();
 
         }
 
@@ -48,7 +64,7 @@ namespace CSAppBE.Web
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseRouting();
 
             app.UseAuthorization();

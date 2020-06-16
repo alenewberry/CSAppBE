@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class Client
+    public class Client : IEntity
     {
         public int Id { get; set; }
 
@@ -19,5 +19,6 @@
         [Display(Name = "Teléfono")]
         public string Phone { get; set; }
 
+        public User User { get; set; }
     }
 }

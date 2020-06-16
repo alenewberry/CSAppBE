@@ -3,34 +3,36 @@
     using System.Threading.Tasks;
     using Data;
     using Data.Entities;
+    using Helpers;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     
-
     public class ClientsController : Controller
     {
-        private readonly IRepository repository;
+        private readonly IClientRepository clientRepo;
+        private readonly IUserHelper userHelper;
 
-        public ClientsController(IRepository repository)
+        public ClientsController(IClientRepository clientRepo, IUserHelper userHelper)
         {
-            this.repository = repository;
+            this.clientRepo = clientRepo;
+            this.userHelper = userHelper;
         }
 
         // GET: Clients
         public IActionResult Index()
         {
-            return View(this.repository.GetClients());
+            return View(this.clientRepo.GetAll());
         }
 
         // GET: Clients/Details/5
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var client = this.repository.GetClient(id.Value);
+            var client = await this.clientRepo.GetByIdAsync(id.Value);
             if (client == null)
             {
                 return NotFound();
@@ -52,22 +54,23 @@
         {
             if (ModelState.IsValid)
             {
-                this.repository.AddClient(client);
-                await this.repository.SaveAllAsync();
+                //TODO Cambiar por el user logueado.
+                client.User = await this.userHelper.GetUserByEmailAsync("alenewberry@gmail.com");
+                await this.clientRepo.CreateAsync(client);
                 return RedirectToAction(nameof(Index));
             }
             return View(client);
         }
 
         // GET: Clients/Edit/5
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var client = this.repository.GetClient(id.Value);
+            var client = await this.clientRepo.GetByIdAsync(id.Value);
             if (client == null)
             {
                 return NotFound();
@@ -89,12 +92,13 @@
             {
                 try
                 {
-                    this.repository.UpdateClient(client);
-                    await this.repository.SaveAllAsync();
+                    //TODO Cambiar por el user logueado.
+                    client.User = await this.userHelper.GetUserByEmailAsync("alenewberry@gmail.com");
+                    await this.clientRepo.UpdateAsync(client);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!this.repository.ClientExists(client.Id))
+                    if (!await this.clientRepo.ExistAsync(client.Id))
                     {
                         return NotFound();
                     }
@@ -109,14 +113,14 @@
         }
 
         // GET: Clients/Delete/5
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var client = this.repository.GetClient(id.Value);
+            var client = await this.clientRepo.GetByIdAsync(id.Value);
             if (client == null)
             {
                 return NotFound();
@@ -130,9 +134,8 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var client = this.repository.GetClient(id);
-            this.repository.RemoveClient(client);
-            await this.repository.SaveAllAsync();
+            var client = await this.clientRepo.GetByIdAsync(id);
+            await this.clientRepo.DeleteAsync(client);
             return RedirectToAction(nameof(Index));
         }
     }
