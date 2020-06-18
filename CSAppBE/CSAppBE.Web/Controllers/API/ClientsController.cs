@@ -16,7 +16,7 @@
         [HttpGet]
         public IActionResult GetClients()
         {
-            return Ok(this.clientRepo.GetAll());
+            return Ok(this.clientRepo.GetAllWithUsers());
         }
     }
 }
