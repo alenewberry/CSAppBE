@@ -4,9 +4,11 @@
     using Data;
     using Data.Entities;
     using Helpers;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-    
+
+    [Authorize]
     public class ClientsController : Controller
     {
         private readonly IClientRepository clientRepo;
