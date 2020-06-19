@@ -31,13 +31,13 @@
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ClientNotFound");
             }
 
             var client = await this.clientRepo.GetByIdAsync(id.Value);
             if (client == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ClientNotFound");
             }
 
             return View(client);
@@ -68,13 +68,13 @@
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ClientNotFound");
             }
 
             var client = await this.clientRepo.GetByIdAsync(id.Value);
             if (client == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ClientNotFound");
             }
             return View(client);
         }
@@ -86,7 +86,7 @@
         {
             if (id != client.Id)
             {
-                return NotFound();
+                return new NotFoundViewResult("ClientNotFound");
             }
 
             if (ModelState.IsValid)
@@ -100,7 +100,7 @@
                 {
                     if (!await this.clientRepo.ExistAsync(client.Id))
                     {
-                        return NotFound();
+                        return new NotFoundViewResult("ClientNotFound");
                     }
                     else
                     {
@@ -117,13 +117,13 @@
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ClientNotFound");
             }
 
             var client = await this.clientRepo.GetByIdAsync(id.Value);
             if (client == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ClientNotFound");
             }
 
             return View(client);
@@ -138,5 +138,11 @@
             await this.clientRepo.DeleteAsync(client);
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult ClientNotFound()
+        {
+            return this.View();
+        }
+
     }
 }

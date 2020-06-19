@@ -17,6 +17,11 @@
 		{
 			return this.context.Clients.Include(p => p.User).OrderBy(p => p.Name);
 		}
+
+		public IQueryable GetAllByUser(string email)
+		{
+			return this.context.Clients.Include(p => p.User).Where(p => p.User.Name == email).OrderBy(p => p.Name);
+		}
 	}
 
 }
