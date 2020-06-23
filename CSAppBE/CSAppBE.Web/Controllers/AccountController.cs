@@ -2,12 +2,15 @@
 {
     using System;
     using System.IdentityModel.Tokens.Jwt;
+    using System.IO;
     using System.Linq;
     using System.Security.Claims;
     using System.Text;
     using System.Threading.Tasks;
+    using CSAppBE.Web.Data;
     using Data.Entities;
     using Helpers;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
@@ -18,11 +21,13 @@
     {
         private readonly IUserHelper userHelper;
         private readonly IConfiguration configuration;
+        private readonly IFileRepository fileRepo;
 
-        public AccountController(IUserHelper userHelper, IConfiguration configuration)
+        public AccountController(IUserHelper userHelper, IConfiguration configuration, IFileRepository fileRepo)
         {
             this.userHelper = userHelper;
             this.configuration = configuration;
+            this.fileRepo = fileRepo;
         }
 
         public IActionResult Login()
@@ -129,16 +134,45 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangeUser(ChangeUserViewModel model)
+        public async Task<IActionResult> ChangeUser(ChangeUserViewModel model, IFormFile file)
         {
             if (this.ModelState.IsValid)
             {
                 var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                 if (user != null)
                 {
+
                     user.Name = model.Name;
                     user.Serial = model.Serial;
-                    var respose = await this.userHelper.UpdateUserAsync(user);
+                    if (file != null)
+                    {
+                        if (file.Length > 0)
+                        {
+                            //Getting FileName
+                            var fileName = Path.GetFileName(file.FileName);
+                            //Getting file Extension
+                            var fileExtension = Path.GetExtension(fileName);
+                            // concatenating  FileName + FileExtension
+                            var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
+
+                            var objfile = new Data.Entities.File()
+                            {                                
+                                FileName = newFileName,
+                                FileType = fileExtension,
+                                AddedDate = DateTime.Now
+                            };
+
+                            using (var target = new MemoryStream())
+                            {
+                                file.CopyTo(target);
+                                objfile.Data = target.ToArray();
+                            }
+
+                            await fileRepo.CreateAsync(objfile);
+                            user.Certificate = objfile;
+                        }
+                    }
+                        var respose = await this.userHelper.UpdateUserAsync(user);
                     if (respose.Succeeded)
                     {
                         this.ViewBag.UserMessage = "Listo! Tus datos se actualizaron";

@@ -59,7 +59,7 @@ namespace CSAppBE.Web
             services.AddTransient<SeedDb>();
 
             services.AddScoped<IClientRepository, ClientRepository>();
-
+            services.AddScoped<IFileRepository, FileRepository>();
             services.AddScoped<IUserHelper, UserHelper>();
 
         }

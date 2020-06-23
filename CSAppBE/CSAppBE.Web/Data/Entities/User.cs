@@ -14,5 +14,7 @@
         public DateTime DueDate { get; set; }
 
         public bool IsActive { get; set; }
+
+        public File Certificate { get; set; }
     }
 }

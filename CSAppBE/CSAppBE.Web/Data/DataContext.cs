@@ -8,6 +8,9 @@
     public class DataContext : IdentityDbContext<User>
     {
         public DbSet<Client> Clients { get; set; }
+
+        public DbSet<File> Files { get; set; }
+
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
 
