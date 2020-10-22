@@ -120,14 +120,15 @@
             return this.View(model);
         }
 
-        public async Task<IActionResult> ChangeUser()
+        public IActionResult ChangeUser()
         {
-            var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+            var user =  this.userHelper.GetUserWithCertificateByEmail(this.User.Identity.Name);
             var model = new ChangeUserViewModel();
             if (user != null)
             {
                 model.Name = user.Name;
                 model.Serial = user.Serial;
+                model.Certificate = user.Certificate;
             }
 
             return this.View(model);

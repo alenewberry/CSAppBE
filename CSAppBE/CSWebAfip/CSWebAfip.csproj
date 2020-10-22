@@ -1,0 +1,682 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3D2ED88E-3550-4F0F-86AF-2F0A7005F043}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CSWebAfip</RootNamespace>
+    <AssemblyName>CSWebAfip</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.DispatchProxy, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.DispatchProxy.4.5.0\lib\net461\System.Reflection.DispatchProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.4.5.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Xml, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Xml.4.5.0\lib\net461\System.Security.Cryptography.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.4.5.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.5.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Http, Version=4.7.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ServiceModel.Http.4.7.0\lib\net461\System.ServiceModel.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Primitives, Version=4.7.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ServiceModel.Primitives.4.7.0\lib\net461\System.ServiceModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WcfCoreMtomEncoder, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WcfCoreMtomEncoderV2.1.0.1\lib\netstandard2.0\WcfCoreMtomEncoder.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Connected Services\ar.gob.afip.serviciosjava\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ar.gov.afip.aws\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ar.gov.afip.servicios1bonos\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ar.gov.afip.servicios1fev2\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ar.gov.afip.servicios1fex\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ar.gov.afip.servicios1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ar.gov.afip.wsaahomo\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ar.gov.afip.wsaa\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\VEConsumerService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="CSwsAfip.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.autorizarComprobanteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.AutorizarComprobanteReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarCodigosItemTurismoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarCodigosItemTurismoReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarComprobanteReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarComprobanteTipoPVentaNroResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarCondicionesIVAResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarCondicionesIVAReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarCotizacionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarCotizacionReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarCuitPaisesReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarCUITsPaisesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarFormasPagoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarFormasPagoReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarMonedasResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarMonedasReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarNovedadesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarNovedadesReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarPaisesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarPaisesReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarPuntosVentaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarPuntosVentaReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarRelacionEmisorReceptorResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarRelacionEmisorReceptorReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarTiposComprobantesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarTiposComprobantesReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarTiposCuentaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarTiposCuentaReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarTiposDatosAdicionalesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarTiposDatosAdicionalesReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarTiposDocumentoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarTiposDocumentoReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarTiposItemResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarTiposItemReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarTiposIVAResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarTiposIVAReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarTiposTarjetaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarTiposTarjetaReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarTiposTributoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarTiposTributoReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.consultarUltimoComprobanteAutorizadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.ConsultarUltimoComprobanteAutorizadoReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.dummyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CSWebAfip.ar.gob.afip.serviciosjava.DummyReturnType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\CTService.wsdl" />
+    <None Include="Connected Services\ar.gov.afip.aws\CSWebAfip.ar.gov.afip.aws.dummyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.aws\CSWebAfip.ar.gov.afip.aws.dummyReturn.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.aws\CSWebAfip.ar.gov.afip.aws.getPersonaListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.aws\CSWebAfip.ar.gov.afip.aws.getPersonaList_v2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.aws\CSWebAfip.ar.gov.afip.aws.getPersonaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.aws\CSWebAfip.ar.gov.afip.aws.getPersona_v2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.aws\CSWebAfip.ar.gov.afip.aws.personaListReturn.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.aws\CSWebAfip.ar.gov.afip.aws.personaReturn.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.aws\PersonaServiceA5.wsdl" />
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\CSWebAfip.ar.gov.afip.servicios1bonos.BFEGetCMPResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\CSWebAfip.ar.gov.afip.servicios1bonos.BFEResponseAuthorize.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\CSWebAfip.ar.gov.afip.servicios1bonos.BFEResponseLast_CMP.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\CSWebAfip.ar.gov.afip.servicios1bonos.BFEResponse_LastID.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\CSWebAfip.ar.gov.afip.servicios1bonos.BFEResponse_Mon.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\CSWebAfip.ar.gov.afip.servicios1bonos.BFEResponse_NCM.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\CSWebAfip.ar.gov.afip.servicios1bonos.BFEResponse_Opc.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\CSWebAfip.ar.gov.afip.servicios1bonos.BFEResponse_Tipo_Cbte.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\CSWebAfip.ar.gov.afip.servicios1bonos.BFEResponse_Tipo_doc.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\CSWebAfip.ar.gov.afip.servicios1bonos.BFEResponse_Tipo_IVA.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\CSWebAfip.ar.gov.afip.servicios1bonos.BFEResponse_Umed.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\CSWebAfip.ar.gov.afip.servicios1bonos.BFEResponse_Zon.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\CSWebAfip.ar.gov.afip.servicios1bonos.DummyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\service.wsdl" />
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.CbteTipoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.ConceptoTipoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.DocTipoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.DummyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FECAEAConsultarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FECAEAGetResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FECAEARegInformativoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FECAEAResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FECAEASinMovConsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FECAEASinMovimientoConsultarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FECAEASinMovimientoInformarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FECAEASinMovResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FECAEASolicitarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FECAEResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FECAESolicitarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FECompConsultaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FECompConsultarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FECompTotXRequestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FECompUltimoAutorizadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FECotizacionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FEDummyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FEPaisResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FEParamGetCotizacionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FEParamGetPtosVentaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FEParamGetTiposCbteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FEParamGetTiposConceptoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FEParamGetTiposDocResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FEParamGetTiposIvaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FEParamGetTiposMonedasResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FEParamGetTiposOpcionalResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FEParamGetTiposPaisesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FEParamGetTiposTributosResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FEPtoVentaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FERecuperaLastCbteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FERegXReqResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.FETributoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.IvaTipoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.MonedaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\CSWebAfip.ar.gov.afip.servicios1fev2.OpcionalTipoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\service.wsdl" />
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.DummyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.FEXGetCMPResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.FEXResponseAuthorize.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.FEXResponseLast_CMP.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.FEXResponse_CheckPermiso.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.FEXResponse_Ctz.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.FEXResponse_DST_cuit.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.FEXResponse_DST_pais.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.FEXResponse_Idi.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.FEXResponse_Inc.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.FEXResponse_LastID.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.FEXResponse_Mon.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.FEXResponse_Mon_CON_COTIZACION.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.FEXResponse_PtoVenta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.FEXResponse_Tex.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.FEXResponse_Tipo_Cbte.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\CSWebAfip.ar.gov.afip.servicios1fex.FEXResponse_Umed.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\service.wsdl" />
+    <None Include="Connected Services\ar.gov.afip.servicios1\CSWebAfip.ar.gov.afip.servicios1.DummyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1\CSWebAfip.ar.gov.afip.servicios1.FEConsultaCAEResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1\CSWebAfip.ar.gov.afip.servicios1.FERecuperaLastCMPResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1\CSWebAfip.ar.gov.afip.servicios1.FERecuperaQTYResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1\CSWebAfip.ar.gov.afip.servicios1.FEResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1\CSWebAfip.ar.gov.afip.servicios1.FEUltNroResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.servicios1\service.wsdl" />
+    <None Include="Connected Services\ar.gov.afip.wsaahomo\CSWebAfip.ar.gov.afip.wsaahomo.loginCmsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.wsaahomo\LoginCms.wsdl" />
+    <None Include="Connected Services\ar.gov.afip.wsaa\CSWebAfip.ar.gov.afip.wsaa.loginCmsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ar.gov.afip.wsaa\LoginCms.wsdl" />
+    <None Include="Connected Services\VEConsumerService\CSWebAfip.VEConsumerService.Comunicacion.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\VEConsumerService\CSWebAfip.VEConsumerService.consultarComunicacionesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\VEConsumerService\CSWebAfip.VEConsumerService.consultarEstadosResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\VEConsumerService\CSWebAfip.VEConsumerService.consultarSistemasPublicadoresResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\VEConsumerService\CSWebAfip.VEConsumerService.consumirComunicacionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\VEConsumerService\CSWebAfip.VEConsumerService.DummyResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\VEConsumerService\CSWebAfip.VEConsumerService.Estado.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\VEConsumerService\CSWebAfip.VEConsumerService.RespuestaPaginada.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\VEConsumerService\CSWebAfip.VEConsumerService.Sistema.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\VEConsumerService\VEConsumerService.wsdl" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\ar.gob.afip.serviciosjava\" />
+    <WCFMetadataStorage Include="Connected Services\ar.gov.afip.aws\" />
+    <WCFMetadataStorage Include="Connected Services\ar.gov.afip.servicios1bonos\" />
+    <WCFMetadataStorage Include="Connected Services\ar.gov.afip.servicios1fev2\" />
+    <WCFMetadataStorage Include="Connected Services\ar.gov.afip.servicios1fex\" />
+    <WCFMetadataStorage Include="Connected Services\ar.gov.afip.servicios1\" />
+    <WCFMetadataStorage Include="Connected Services\ar.gov.afip.wsaahomo\" />
+    <WCFMetadataStorage Include="Connected Services\ar.gov.afip.wsaa\" />
+    <WCFMetadataStorage Include="Connected Services\VEConsumerService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gob.afip.serviciosjava\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.aws\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.aws\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.aws\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.servicios1\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.servicios1\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.servicios1\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.servicios1bonos\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.servicios1fev2\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.servicios1fex\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.wsaa\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.wsaa\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.wsaa\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.wsaahomo\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.wsaahomo\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ar.gov.afip.wsaahomo\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\VEConsumerService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\VEConsumerService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\VEConsumerService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

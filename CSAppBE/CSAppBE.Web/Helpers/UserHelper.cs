@@ -1,8 +1,10 @@
 ﻿namespace CSAppBE.Web.Helpers
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using Data.Entities;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
     using Models;    
 
     public class UserHelper : IUserHelper
@@ -24,6 +26,11 @@
         public async Task<User> GetUserByEmailAsync(string email)
         {
             return await this.userManager.FindByEmailAsync(email);
+        }
+
+        public User GetUserWithCertificateByEmail(string email)
+        {
+            return this.userManager.Users.Include(u => u.Certificate).Where(u => u.Email == email).FirstOrDefault();
         }
 
         public async Task<SignInResult> LoginAsync(LoginViewModel model)

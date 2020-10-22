@@ -1,5 +1,6 @@
 ﻿namespace CSAppBE.Web.Helpers
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using Data.Entities;
     using Microsoft.AspNetCore.Identity;
@@ -20,5 +21,7 @@
         Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword);
 
         Task<SignInResult> ValidatePasswordAsync(User user, string password);
+
+        User GetUserWithCertificateByEmail(string email);
     }
 }

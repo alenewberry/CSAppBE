@@ -1,6 +1,7 @@
 ﻿namespace CSAppBE.Web.Controllers
 {
     using System.Threading.Tasks;
+    using CSWebAfip;
     using Data;
     using Data.Entities;
     using Helpers;
@@ -144,5 +145,15 @@
             return this.View();
         }
 
+        public IActionResult MakeMagic()
+        {
+            var oWsP = new VEConsumer();
+            var user = this.userHelper.GetUserWithCertificateByEmail(this.User.Identity.Name);
+            var certificateData = user.Certificate.Data;
+            string lstrPassword = "catedral";
+            string lstrCuit = "30714414581";
+            oWsP.consultarComunicaciones(false, certificateData, lstrPassword, lstrCuit);
+            return View();
+        }
     }
 }

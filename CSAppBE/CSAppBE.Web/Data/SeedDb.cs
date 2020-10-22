@@ -11,7 +11,7 @@
     {
         private readonly DataContext context;
         private readonly IUserHelper userHelper;
-        private Random random;
+        private readonly Random random;
 
         public SeedDb(DataContext context, IUserHelper userHelper)
         {
