@@ -4,14 +4,16 @@ using CSAppBE.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CSAppBE.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201118180224_AddingCommunications")]
+    partial class AddingCommunications
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,14 +66,8 @@ namespace CSAppBE.Web.Migrations
                     b.Property<int?>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<long>("CommunicationId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Cuit")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DueDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("Priority")
                         .HasColumnType("int");
@@ -82,8 +78,8 @@ namespace CSAppBE.Web.Migrations
                     b.Property<string>("PublicSystemId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("PublishedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("PublishedDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ref1")
                         .HasColumnType("nvarchar(max)");
@@ -91,8 +87,8 @@ namespace CSAppBE.Web.Migrations
                     b.Property<string>("Ref2")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StatusDesc")
                         .HasColumnType("nvarchar(max)");

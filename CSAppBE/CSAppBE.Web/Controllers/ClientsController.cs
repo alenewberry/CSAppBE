@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using Newtonsoft.Json;
 
     [Authorize]
     public class ClientsController : Controller
@@ -152,7 +153,8 @@
             var certificateData = user.Certificate.Data;
             string lstrPassword = "catedral";
             string lstrCuit = "30714414581";
-            oWsP.consultarComunicaciones(false, certificateData, lstrPassword, lstrCuit);
+            var response = oWsP.consultarComunicaciones(false, certificateData, lstrPassword, lstrCuit);
+            var jsonResponse = JsonConvert.SerializeObject(response);
             return View();
         }
     }

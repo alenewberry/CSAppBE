@@ -137,12 +137,12 @@
         [HttpPost]
         public async Task<IActionResult> ChangeUser(ChangeUserViewModel model, IFormFile file)
         {
-            if (this.ModelState.IsValid)
-            {
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+            model.Certificate = null;
+
                 var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                 if (user != null)
                 {
-
                     user.Name = model.Name;
                     user.Serial = model.Serial;
                     if (file != null)
@@ -187,7 +187,7 @@
                 {
                     this.ModelState.AddModelError(string.Empty, "No encontramos el usuario.");
                 }
-            }
+            
 
             return this.View(model);
         }

@@ -6698,7 +6698,7 @@
             }
         }
 
-        public void consultarComunicaciones(bool argbIsHomologacion, byte[] argdataCertificate, string argStrPassword, string argStrCuit)
+        public RespuestaPaginada consultarComunicaciones(bool argbIsHomologacion, byte[] argdataCertificate, string argStrPassword, string argStrCuit)
         {
 
             dataCertificate = argdataCertificate;
@@ -6751,16 +6751,65 @@
 
             response = veConsumer.consultarComunicaciones(authRequest, filter);
 
-            foreach (var comunication in response.items)
-            {
-                //MessageBox.Show(comunication.asunto);
-                //MessageBox.Show(comunication.estadoDesc);
-                //MessageBox.Show(comunication.fechaPublicacion);
-                var comunicationObj = veConsumer.consumirComunicacion(authRequest, comunication.idComunicacion, false);
-                //MessageBox.Show(comunicationObj.mensaje);
-            }
+            return response;
         }
 
+        public Comunicacion ConsumirComunicacion(byte[] argdataCertificate, string argStrPassword, string argStrCuit, long idComunication)
+        {
+
+            dataCertificate = argdataCertificate;
+            strPassword = argStrPassword;
+            try
+            {
+                if (!CSwsAfipChecktTAPersona())
+                {
+                    BIsConnect = CSwsAfipAAGetTRA();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            // Convertir string a long
+            long cuit;
+            long.TryParse(argStrCuit, out cuit);
+
+            var authRequest = new AuthRequest
+            {
+                cuitRepresentada = cuit,
+                sign = this.StrSign,
+                token = this.StrToken
+            };
+            var filter = new Filter
+            {
+                fechaDesde = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd")
+            };
+
+            var encoding = new MtomMessageEncoderBindingElement(new TextMessageEncodingBindingElement())
+            {
+                MessageVersion = MessageVersion.Soap12
+            };
+            var transport = new HttpsTransportBindingElement();
+            transport.AllowCookies = true;
+            transport.MaxReceivedMessageSize = 20000000;
+            var customBinding = new CustomBinding(encoding, transport)
+            {
+                Name = "BindingAuthBasicMtom",
+                OpenTimeout = TimeSpan.FromMinutes(1),
+                CloseTimeout = TimeSpan.FromMinutes(1),
+                SendTimeout = TimeSpan.FromMinutes(10),
+                ReceiveTimeout = TimeSpan.FromMinutes(10),
+                
+            };
+
+            EndpointAddress remoteAddress = new EndpointAddress(new Uri("https://infraestructura.afip.gob.ar/ve-ws/services/veconsumer/"));
+            var veConsumer = new VEConsumerClient(customBinding, remoteAddress);
+
+            var response = veConsumer.consumirComunicacion(authRequest, idComunication, true);
+
+            return response;
+        }
         private bool CSwsAfipChecktTAPersona()
         {
             bool lbReturn = false;
@@ -6826,7 +6875,7 @@
             }
             catch (Exception exceptionwsAfipAA)
             {
-                throw new Exception("Concha tu madre abuela" + exceptionwsAfipAA.Message);
+                throw new Exception("Error:" + exceptionwsAfipAA.Message);
             }
         }
     }

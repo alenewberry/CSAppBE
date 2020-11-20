@@ -1,0 +1,55 @@
+﻿@model IEnumerable<CSAppBE.Web.Data.Entities.Communication>
+
+@{
+    ViewData["Title"] = "E-Ventanilla";
+}
+
+<h1>Notificaciones</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PublishedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PublicSystemDesc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusDesc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Attach)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublicSystemDesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusDesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Attach)
+            </td>
+            <td>
+                <a asp-action="ConsumirComunicacion" asp-route-idCom="@item.CommunicationId" class="btn btn-dark">AFIP</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

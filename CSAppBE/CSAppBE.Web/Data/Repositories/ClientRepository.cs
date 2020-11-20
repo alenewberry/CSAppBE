@@ -13,6 +13,11 @@
 			this.context = context;
 		}
 
+		public Client GetByCUIT(string CUIT)
+        {
+			return this.context.Clients.Include(c => c.User).Where(c => c.CUIT == CUIT).FirstOrDefault();
+		}
+
 		public IQueryable GetAllWithUsers()
 		{
 			return this.context.Clients.Include(p => p.User).OrderBy(p => p.Name);
@@ -23,5 +28,4 @@
 			return this.context.Clients.Include(p => p.User).Where(p => p.User.Name == email).OrderBy(p => p.Name);
 		}
 	}
-
 }

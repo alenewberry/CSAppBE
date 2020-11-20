@@ -11,6 +11,8 @@
 
         public DbSet<File> Files { get; set; }
 
+        public DbSet<Communication> Communications { get; set; }
+
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
 

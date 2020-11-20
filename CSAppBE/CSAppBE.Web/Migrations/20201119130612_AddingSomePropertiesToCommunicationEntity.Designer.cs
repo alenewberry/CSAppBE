@@ -4,14 +4,16 @@ using CSAppBE.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CSAppBE.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201119130612_AddingSomePropertiesToCommunicationEntity")]
+    partial class AddingSomePropertiesToCommunicationEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,8 +72,8 @@ namespace CSAppBE.Web.Migrations
                     b.Property<string>("Cuit")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DueDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("DueDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Priority")
                         .HasColumnType("int");
@@ -82,8 +84,8 @@ namespace CSAppBE.Web.Migrations
                     b.Property<string>("PublicSystemId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("PublishedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("PublishedDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ref1")
                         .HasColumnType("nvarchar(max)");

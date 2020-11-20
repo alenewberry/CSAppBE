@@ -8,6 +8,8 @@
         IQueryable GetAllWithUsers();
 
         IQueryable GetAllByUser(string email);
+
+        Client GetByCUIT(string CUIT);
     }
 
 }

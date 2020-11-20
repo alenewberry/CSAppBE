@@ -1,6 +1,7 @@
 namespace CSAppBE.Web
 {
-    using Data;
+    using CSAppBE.Web.Data;
+    using CSAppBE.Web.Data.Repositories;
     using Data.Entities;
     using Helpers;
     using Microsoft.AspNetCore.Builder;
@@ -60,6 +61,7 @@ namespace CSAppBE.Web
 
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<IFileRepository, FileRepository>();
+            services.AddScoped<ICommunicationRepository, CommunicationRepository>();
             services.AddScoped<IUserHelper, UserHelper>();
 
         }
