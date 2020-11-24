@@ -1,0 +1,41 @@
+﻿@model CSAppBE.Web.Models.CommunicationViewModel
+
+@{
+    ViewData["Title"] = "E-Ventanilla";
+}
+
+<h1>Comunicación</h1>
+<form method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subject)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Message)
+                </th>
+                @Html.HiddenFor(model => model.FileName)
+                @Html.HiddenFor(model => model.Data)
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Message)
+                </td>
+                <td>
+                    @if (Model.FileName != string.Empty)
+                    {
+                        <input type="submit" value="Descargar" class="btn btn-primary" />
+                    }
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>

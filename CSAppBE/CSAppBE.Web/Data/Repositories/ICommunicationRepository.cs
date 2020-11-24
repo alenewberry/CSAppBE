@@ -5,6 +5,7 @@
 
     public interface ICommunicationRepository : IGenericRepository<Communication>
     {
+        IQueryable<Communication> GetByClientId(string cuit);
         Communication GetByCommunicationId(long commId);
     }
 }

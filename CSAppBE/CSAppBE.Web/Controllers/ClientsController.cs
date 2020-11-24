@@ -154,7 +154,6 @@
             string lstrPassword = "catedral";
             string lstrCuit = "30714414581";
             var response = oWsP.consultarComunicaciones(false, certificateData, lstrPassword, lstrCuit);
-            var jsonResponse = JsonConvert.SerializeObject(response);
             return View();
         }
     }
