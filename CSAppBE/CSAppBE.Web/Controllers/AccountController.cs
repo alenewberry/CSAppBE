@@ -128,66 +128,35 @@
             {
                 model.Name = user.Name;
                 model.Serial = user.Serial;
-                model.Certificate = user.Certificate;
             }
 
             return this.View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangeUser(ChangeUserViewModel model, IFormFile file)
+        public async Task<IActionResult> ChangeUser(ChangeUserViewModel model)
         {
-            var errors = ModelState.Values.SelectMany(v => v.Errors);
-            model.Certificate = null;
+            var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
 
-                var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
-                if (user != null)
+            if (user != null)
+            {
+                user.Name = model.Name;
+                user.Serial = model.Serial;                
+
+                var respose = await this.userHelper.UpdateUserAsync(user);
+                if (respose.Succeeded)
                 {
-                    user.Name = model.Name;
-                    user.Serial = model.Serial;
-                    if (file != null)
-                    {
-                        if (file.Length > 0)
-                        {
-                            //Getting FileName
-                            var fileName = Path.GetFileName(file.FileName);
-                            //Getting file Extension
-                            var fileExtension = Path.GetExtension(fileName);
-                            // concatenating  FileName + FileExtension
-                            var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
-
-                            var objfile = new Data.Entities.File()
-                            {                                
-                                FileName = newFileName,
-                                FileType = fileExtension,
-                                AddedDate = DateTime.Now
-                            };
-
-                            using (var target = new MemoryStream())
-                            {
-                                file.CopyTo(target);
-                                objfile.Data = target.ToArray();
-                            }
-
-                            await fileRepo.CreateAsync(objfile);
-                            user.Certificate = objfile;
-                        }
-                    }
-                        var respose = await this.userHelper.UpdateUserAsync(user);
-                    if (respose.Succeeded)
-                    {
-                        this.ViewBag.UserMessage = "Listo! Tus datos se actualizaron";
-                    }
-                    else
-                    {
-                        this.ModelState.AddModelError(string.Empty, respose.Errors.FirstOrDefault().Description);
-                    }
+                    this.ViewBag.UserMessage = "Listo! Tus datos se actualizaron";
                 }
                 else
                 {
-                    this.ModelState.AddModelError(string.Empty, "No encontramos el usuario.");
+                    this.ModelState.AddModelError(string.Empty, respose.Errors.FirstOrDefault().Description);
                 }
-            
+            }
+            else
+            {
+                this.ModelState.AddModelError(string.Empty, "No encontramos el usuario.");
+            }          
 
             return this.View(model);
         }
@@ -217,7 +186,7 @@
                 }
                 else
                 {
-                    this.ModelState.AddModelError(string.Empty, "User no found.");
+                    this.ModelState.AddModelError(string.Empty, "No encontramos el usuario.");
                 }
             }
 
@@ -264,6 +233,81 @@
             }
 
             return this.BadRequest();
+        }
+
+        public IActionResult ChangeCertificate()
+        {
+            var user = this.userHelper.GetUserWithCertificateByEmail(this.User.Identity.Name);
+            var model = new ChangeCertificateViewModel();
+            if (user != null)
+            {
+                model.Certificate = user.Certificate;
+                model.Password = user.CertificatePassword;
+                if (user.Certificate != null)
+                {
+                    @ViewBag.HasCertificate = true;
+                    @ViewBag.CertificateName = user.Certificate.FileName;
+                }
+            }
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeCertificate(ChangeCertificateViewModel model, IFormFile file)
+        {
+            model.Certificate = null;
+            var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+
+            if (user != null)
+            {
+                user.CertificatePassword = model.Password;
+
+                if (file != null)
+                {
+                    if (file.Length > 0)
+                    {
+                        //Getting FileName
+                        var fileName = Path.GetFileName(file.FileName);
+                        //Getting file Extension
+                        var fileExtension = Path.GetExtension(fileName);
+                        // concatenating  FileName + FileExtension
+                        //var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
+
+                        var objfile = new Data.Entities.File()
+                        {
+                            FileName = fileName,
+                            FileType = fileExtension,
+                            AddedDate = DateTime.Now
+                        };
+
+                        using (var target = new MemoryStream())
+                        {
+                            file.CopyTo(target);
+                            objfile.Data = target.ToArray();
+                        }
+
+                        await fileRepo.CreateAsync(objfile);
+                        user.Certificate = objfile;
+                    }
+                }
+
+                var respose = await this.userHelper.UpdateUserAsync(user);
+                if (respose.Succeeded)
+                {
+                    this.ViewBag.UserMessage = "Listo. Cargamos tu certificado!";
+                }
+                else
+                {
+                    this.ModelState.AddModelError(string.Empty, respose.Errors.FirstOrDefault().Description);
+                }
+            }
+            else
+            {
+                this.ModelState.AddModelError(string.Empty, "No encontramos el usuario.");
+            }
+
+            return this.View(model);
         }
     }
 }

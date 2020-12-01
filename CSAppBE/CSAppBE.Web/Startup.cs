@@ -61,6 +61,7 @@ namespace CSAppBE.Web
 
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<IFileRepository, FileRepository>();
+            services.AddScoped<INewsRepository, NewsRepository>();
             services.AddScoped<ICommunicationRepository, CommunicationRepository>();
             services.AddScoped<IUserHelper, UserHelper>();
 

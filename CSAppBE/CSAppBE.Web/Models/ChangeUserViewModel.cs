@@ -12,8 +12,6 @@
         [Required]
         [Display(Name = "Número de Serie")]
         public string Serial { get; set; }
-
-        public File Certificate { get; set; }
     }
 
 }

@@ -20,7 +20,7 @@
 
         public IQueryable<Communication> GetByClientId(string cuit)
         {
-            return this.context.Communications.Include(c => c.Client).Where(c => c.Cuit == cuit);
+            return this.context.Communications.Include(c => c.Client).Where(c => c.Cuit == cuit).OrderByDescending(c => c.PublishedDate);
         }
 
 

@@ -4,18 +4,22 @@
     using Models;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
+    using CSAppBE.Web.Data.Repositories;
 
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly INewsRepository newsRepo;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, INewsRepository newsRepo)
         {
             _logger = logger;
+            this.newsRepo = newsRepo;
         }
 
         public IActionResult Index()
         {
+            @ViewBag.News = this.newsRepo.GetLastNews().Description;
             return View();
         }
 
@@ -36,5 +40,10 @@
             return View();
         }
 
+        [Route("error/100")]
+        public IActionResult Error100()
+        {
+            return View();
+        }
     }
 }

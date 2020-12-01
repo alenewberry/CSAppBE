@@ -1,6 +1,8 @@
 ﻿
 namespace CSAppBE.Web.Controllers
 {
+    using System;
+    using System.Threading.Tasks;
     using CSAppBE.Web.Data;
     using CSAppBE.Web.Data.Entities;
     using CSAppBE.Web.Data.Repositories;
@@ -8,12 +10,7 @@ namespace CSAppBE.Web.Controllers
     using CSAppBE.Web.Models;
     using CSWebAfip;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Newtonsoft.Json;
-    using System;
-    using System.Globalization;
-    using System.Threading.Tasks;
 
     [Authorize]
     public class CommunicationsController : Controller
@@ -47,11 +44,10 @@ namespace CSAppBE.Web.Controllers
                 if (user != null)
                 {
                     var certificateData = user.Certificate.Data;
-                    string lstrPassword = "catedral";
-                    string lstrCuit = cuit;
+                    var certificatePassword = user.CertificatePassword;
                     try
                     {
-                        var paginatedResponse = oWsP.consultarComunicaciones(false, certificateData, lstrPassword, lstrCuit);
+                        var paginatedResponse = oWsP.consultarComunicaciones(false, certificateData, certificatePassword, cuit);
                         foreach (var communic in paginatedResponse.items)
                         {
                             if (this.communicRepo.GetByCommunicationId(communic.idComunicacion) == null)
@@ -77,13 +73,15 @@ namespace CSAppBE.Web.Controllers
                             }
                         }
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                    }                    
+                        return RedirectToAction("Error", new { errormsg = e.Message });
+                    }
                 }
-
+                
                 return RedirectToAction("Index", new { cuit = cuit });
             }
+
             return View("Error");
         }
 
@@ -99,13 +97,12 @@ namespace CSAppBE.Web.Controllers
                     if (user != null)
                     {
                         var certificateData = user.Certificate.Data;
-                        string lstrPassword = "catedral";
-                        string lstrCuit = com.Cuit;
+                        var certificatePassword = user.CertificatePassword;
                         var fileName = string.Empty;
                         byte[] data = null;
                         try
                         {
-                            var communication = oWsP.ConsumirComunicacion(certificateData, lstrPassword, lstrCuit, idCom);
+                            var communication = oWsP.ConsumirComunicacion(certificateData, certificatePassword, com.Cuit, idCom);
                             if (communication.adjuntos.Length != 0)
                             {
                                 var adj = communication.adjuntos[0];
@@ -125,10 +122,7 @@ namespace CSAppBE.Web.Controllers
                         }
                         catch (Exception e)
                         {
-                            
                         }
-                        
-                        
                     }
                 }
             }
@@ -140,6 +134,17 @@ namespace CSAppBE.Web.Controllers
         public ActionResult Detail(CommunicationViewModel comm)
         {
             return File(comm.Data, "application/force-download", comm.FileName);
+        }
+
+        public ActionResult Error (string errormsg)
+        {
+            @ViewBag.Error = errormsg;
+            //if (code == 100)
+            //{
+            //    @ViewBag.Error = "La cuit representada no se que gadorch";
+            //}
+            
+            return this.View();
         }
     }
 }

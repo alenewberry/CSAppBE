@@ -3,21 +3,20 @@
 @{
     ViewData["Title"] = "E-Ventanilla";
 }
+<div class="text-center">
+    <h1><i class="fas fa-envelope-open-text"></i></h1>
+    <hr class="default-hr" />
+</div>
 
-<h1>Comunicación</h1>
 <form method="post">
-    <table class="table">
+    @Html.HiddenFor(model => model.FileName)
+    @Html.HiddenFor(model => model.Data)
+    <table class="table text-center">
         <thead>
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Subject)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Message)
-                </th>
-                @Html.HiddenFor(model => model.FileName)
-                @Html.HiddenFor(model => model.Data)
-                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -25,17 +24,30 @@
                 <td>
                     @Html.DisplayFor(model => model.Subject)
                 </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Message)
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
                 <td>
                     @Html.DisplayFor(model => model.Message)
-                </td>
-                <td>
-                    @if (Model.FileName != string.Empty)
-                    {
-                        <input type="submit" value="Descargar" class="btn btn-primary" />
-                    }
-
                 </td>
             </tr>
         </tbody>
     </table>
-    </form>
+    <div class="text-center">
+        @if (Model.FileName != string.Empty)
+        {
+            <input type="submit" value="Descargar Adjunto" class="btn btn-dark" />
+        }
+    </div>
+</form>

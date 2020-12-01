@@ -1,6 +1,7 @@
 ﻿
 namespace CSAppBE.Web.Models
 {
+    using CSAppBE.Web.Data.Entities;
     using System.ComponentModel.DataAnnotations;
 
     public class RegisterNewUserViewModel
@@ -26,5 +27,9 @@ namespace CSAppBE.Web.Models
         [Display(Name = "Confirmar Contraseña")]
         [Compare("Password")]
         public string Confirm { get; set; }
+
+        public File Certificate { get; set; }
+
+        public string CertificatePassword { get; set; }
     }
 }

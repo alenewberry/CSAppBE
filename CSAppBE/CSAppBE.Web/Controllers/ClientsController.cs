@@ -145,16 +145,5 @@
         {
             return this.View();
         }
-
-        public IActionResult MakeMagic()
-        {
-            var oWsP = new VEConsumer();
-            var user = this.userHelper.GetUserWithCertificateByEmail(this.User.Identity.Name);
-            var certificateData = user.Certificate.Data;
-            string lstrPassword = "catedral";
-            string lstrCuit = "30714414581";
-            var response = oWsP.consultarComunicaciones(false, certificateData, lstrPassword, lstrCuit);
-            return View();
-        }
     }
 }

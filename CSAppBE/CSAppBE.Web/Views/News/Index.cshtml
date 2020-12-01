@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CSAppBE.Web.Data.Entities.News>
+
+@{
+    ViewData["Title"] = "Novedades";
+}
+<div class="text-center">
+    <img class="news-logo img-fluid" src="~/images/logo-basico2020.png" />
+    <hr class="default-hr" />
+</div>
+<p>
+    <a asp-action="Create" class="btn btn-primary"><i class="fas fa-plus-square"></i></a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Link)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PublicatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Link)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublicatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark"><i class="fas fa-chevron-circle-right"></i></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

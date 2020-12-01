@@ -4,7 +4,10 @@
     ViewData["Title"] = "E-Ventanilla";
 }
 
+<div class="text-center">
 <h1>Notificaciones</h1>
+<hr class="default-hr" />
+</div>
 
 <table class="table">
     <thead>
@@ -47,7 +50,8 @@
                 @Html.DisplayFor(modelItem => item.Attach)
             </td>
             <td>
-                <a asp-action="Detail" asp-route-idCom="@item.CommunicationId" class="btn btn-dark">Ver más</a>
+                <a asp-action="Detail" asp-route-idCom="@item.CommunicationId" class="btn btn-dark"><i class="fas fa-info-circle"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-dark"><i class="fas fa-trash"></i></a>
             </td>
         </tr>
         }

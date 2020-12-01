@@ -1,30 +1,27 @@
-﻿@model CSAppBE.Web.Models.ChangeUserViewModel
+﻿@model CSAppBE.Web.Models.ChangeCertificateViewModel
 @{
-    ViewData["Title"] = "Actualizar Mis Datos";
+    ViewData["Title"] = "Administración de Certificado";
 }
-
 <div class="text-center">
-    <h2>Actualizá tus datos</h2>
+    <h2>Administrá tu certificado digital</h2>
     <hr class="default-hr" />
 </div>
     <div class="row">
         <div class="col-md-4 offset-md-4">
             <form method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly"></div>
+                <input type="hidden" asp-for="Certificate.Id" />
                 <div class="form-group">
-                    <label asp-for="Name">Razón Social</label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-warning"></span>
+                    <label asp-for="Certificate">¿En dónde se encuentra su certificado?</label>
+                    <input type="file" name="file" />
                 </div>
-
                 <div class="form-group">
-                    <label asp-for="Serial">Número de Serie</label>
-                    <input asp-for="Serial" class="form-control" />
-                    <span asp-validation-for="Serial" class="text-warning"></span>
+                    <label asp-for="Password">Contraseña del Certificado</label>
+                    <input type="password" asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-warning"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Actualizar" class="btn btn-primary" />
-                    <a asp-action="ChangePassword" class="btn btn-success">Cambiar Contraseña</a>
                 </div>
                 <div class="text-success">@ViewBag.UserMessage</div>
             </form>

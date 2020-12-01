@@ -11,10 +11,12 @@
 
         public string Cuit { get; set; }
 
-        [Display(Name = "Fecha:")]
-        public DateTime PublishedDate { get; set; }
+        [Display(Name = "Fecha")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? PublishedDate { get; set; }
 
-        public DateTime DueDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? DueDate { get; set; }
 
         public string PublicSystemId { get; set; }
 
